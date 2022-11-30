@@ -13,3 +13,7 @@ amass intel -asn <ASN number>
 or
 for i in $(cat list_ASNs); do echo; echo "ASN $i"; echo ""; amass intel -active -asn $i; echo ""; done
 
+# google dork
+"copy text: " inurl:domain
+intext:"copy text:"
+
