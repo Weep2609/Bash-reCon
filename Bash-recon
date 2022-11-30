@@ -1,3 +1,4 @@
-```
-test
-```
+# ASN enumeration
+expand $1 | cut -d " " -f1 | sed 's/AS//g'
+
+# 
