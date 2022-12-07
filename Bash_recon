@@ -4,9 +4,7 @@
 # -------------------------------------------------
 
 # ASN enumeration
-asn() {
 expand $1 | cut -d " " -f1 | sed 's/AS//g'
-}
 
 # find cidr from ASNs
 cidr() {
@@ -14,24 +12,18 @@ whois -h whois.radb.net -- '-i origin' $1 | grep -Eo "([0-9.]+){4}/[0-9]+" | uni
 }
 
 # extract rootdomains from asn with amass
+amass intel -asn <ASN number>
 root() {
 for i in $(cat list_ASNs); do echo "ASN $i"; echo ""; amass intel -active -asn $i; echo ""; done
 }
 
 # root domain enumeration with crt.sh
-crt() {    
-  curl -s https://crt.sh/\?o\=$1\&output\=json | jq -r '.[].common_name' | sed 's/\*//' | sort -u | rev | cut -d "." -f 1,2 | rev | sort -u | tee $1.txt
-curl -s https://crt.sh/\?o\=$1\&output\=json | jq -r '.[].common_name' | 
-sed 's/\*//' | sort -u | rev | cut -d "." -f 1,2 | rev | sort -u | tee $1.txt
+crt_root() {
+curl -s https://crt.sh/\?o\=$1\&output\=json | jq -r '.[].common_name' | sed 's/\*//' | sort -u | rev | cut -d "." -f 1,2 | rev | sort -u 
 }
-crt $1
-
-# root domain enum with amass (by Jason Haddix)
-amass intel -asn <ASN number>
-or
-for i in $(cat list_ASNs); do echo; echo "ASN $i"; echo ""; amass intel -active -asn $i; echo ""; done
 
 # google dork
 "copy text: " inurl:domain
 intext:"copy text:"
+
 
