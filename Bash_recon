@@ -65,6 +65,8 @@ python3 censys-subdomain-finder.py tesla.com
 
 # burpsuite 
 
+# assetfinder
+assetfinder -subs-only domain.com
 
 #  get IP of subdomains
 for sub in $(cat $1); do host $sub | grep "has address"; done
