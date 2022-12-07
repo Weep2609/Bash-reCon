@@ -1,8 +1,13 @@
+# edit into .bash_profile
+
+# root domain
+# -------------------------------------------------
 # ASN enumeration
+asn() {
 expand $1 | cut -d " " -f1 | sed 's/AS//g'
+}
 
 # root domain enumeration with crt.sh
-#!/bin/bash
 crt() {    
   curl -s https://crt.sh/\?o\=$1\&output\=json | jq -r '.[].common_name' | sed 's/\*//' | sort -u | rev | cut -d "." -f 1,2 | rev | sort -u | tee $1.txt
 }
