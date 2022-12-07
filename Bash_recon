@@ -1,15 +1,28 @@
 # edit into .bash_profile
 
-# root domain
+# ROOT DOMAINS
 # -------------------------------------------------
+
 # ASN enumeration
 asn() {
 expand $1 | cut -d " " -f1 | sed 's/AS//g'
 }
 
+# find cidr from ASNs
+cidr() {
+whois -h whois.radb.net -- '-i origin' $1 | grep -Eo "([0-9.]+){4}/[0-9]+" | uniq
+}
+
+# extract rootdomains from asn with amass
+root() {
+for i in $(cat list_ASNs); do echo "ASN $i"; echo ""; amass intel -active -asn $i; echo ""; done
+}
+
 # root domain enumeration with crt.sh
 crt() {    
   curl -s https://crt.sh/\?o\=$1\&output\=json | jq -r '.[].common_name' | sed 's/\*//' | sort -u | rev | cut -d "." -f 1,2 | rev | sort -u | tee $1.txt
+curl -s https://crt.sh/\?o\=$1\&output\=json | jq -r '.[].common_name' | 
+sed 's/\*//' | sort -u | rev | cut -d "." -f 1,2 | rev | sort -u | tee $1.txt
 }
 crt $1
 
