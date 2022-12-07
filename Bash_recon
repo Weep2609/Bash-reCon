@@ -1,6 +1,7 @@
 # edit into .bash_profile
 
-# ROOT DOMAINS
+# -------------------------------------------------
+# ROOT_DOMAINS
 # -------------------------------------------------
 
 # ASN enumeration
@@ -26,4 +27,44 @@ curl -s https://crt.sh/\?o\=$1\&output\=json | jq -r '.[].common_name' | sed 's/
 "copy text: " inurl:domain
 intext:"copy text:"
 
+# -------------------------------------------------
+# SUB_DOMAINS
+# -------------------------------------------------
+
+# Get SubDomains from crt free API
+crt() {
+ curl -s "https://crt.sh/?q=%25.$1" \
+  | grep -oE "[\.a-zA-Z0-9-]+\.$1" \
+  | sort -u
+}
+
+# Get SubDomains from rapiddns free API
+rapiddns(){
+ curl -s "https://rapiddns.io/subdomain/$1?full=1" \
+  | grep -oE "[\.a-zA-Z0-9-]+\.$1" \
+  | sort -u
+}
+
+# subfinder
+./subfinder -d tesla.com -silent
+
+# JLDC
+curl https://jldc.me/anubis/subdomains/$1 | jq -r ".[]"
+
+# gau
+gau --subs tesla.com | cut -d "/" -f 3 | sort -u
+
+# amass
+amass enum -passive -d tesla.com
+
+# censys-subdomain-finder
+export CENSYS_API_ID=...
+export CENSYS_API_SECRET=...
+python3 censys-subdomain-finder.py tesla.com
+
+# burpsuite 
+
+
+#  get IP of subdomains
+for sub in $(cat $1); do host $sub | grep "has address"; done
 
