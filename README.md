@@ -6,7 +6,7 @@ Auto find subdomains (passive enum > active enum > brute force > generate permut
 git clone https://github.com/Weep2609/Subtool.git
 ```
 ## Usage
-default
+- Default
 ```
 ./subtool -all tesla.com
 ```
