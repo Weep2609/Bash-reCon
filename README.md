@@ -3,7 +3,7 @@ Auto find subdomains (passive enum > active enum > brute force > generate permut
 
 ## Install
 ```
-git clone https://github.com/Weep2609/Subtool.git
+git clone https://github.com/Weep2609/Bash-reCon.git
 ```
 ## Usage
 Default
