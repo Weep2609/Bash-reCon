@@ -8,7 +8,7 @@ git clone https://github.com/Weep2609/Subtool.git
 ## Usage
 Default
 ```
-./subtool -all tesla.com
+./subtool -a tesla.com
 ```
 
 
