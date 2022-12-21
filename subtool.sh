@@ -3,10 +3,7 @@
 
 ############################
 # Notes:
-# ./Tools/gau --subs domain.com | cut -d "/" -f 3 | sort -u
-# amass enum -active -brute -d domain.com
-# ./Tools/SubDomainizer/SubDomainizer.py -u https://domain.com | grep domain.com
-# curl -s -I -L "https://twitter.com/" | grep -Ei '^Content-Security-Policy:' | sed "s/;/;\\n/g" | grep "twitter.com"
+# Beginner
 ############################
 
 option=$1
