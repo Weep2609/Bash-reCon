@@ -15,7 +15,7 @@ domain=$2
 passive() {
 	
 	echo ""
-	echo "#################### step 1: Subdomain enumeration ####################"
+	echo "#################### Subdomain enumeration ####################"
 	echo ""
 	echo "Passive enumeration"
 	echo "[+] Starting findomain..."
@@ -130,26 +130,6 @@ permutations() {
 	echo "#####################################################"
 	echo "[+] Found subdomains from permutations: $permutations"
 	echo "#####################################################"
-}
-
-
-alive() {
-	echo ""
-	echo "#################### step 2: find alive hosts ####################"
-	echo ""
-	echo "[+] Probing for live hosts..."
-	echo "[+] Starting httprobe..."
-	cat ./$domain/raw-sub.txt | sort -u | ./Tools/httprobe -c 50 -t 3000 >> ./$domain/alive.txt
-	cat ./$domain/alive.txt | sed 's/\http\:\/\///g' |  sed 's/\https\:\/\///g' | sort -u | while read line; do
-	probeurl=$(cat ./$domain/alive.txt | sort -u | grep -m 1 $line)
-	echo "$probeurl" >> ./$domain/urllist.txt
-	done
-	echo "$(cat ./$domain/urllist.txt | sort -u)" > ./$domain/urllist.txt
-	echo ""
-	echo "#####################################################"
-	echo  "[+] Total of $(wc -l ./$domain/urllist.txt | awk '{print $1}') live subdomains were found"	
-	echo "#####################################################"
-	echo ""
 }
 
 
